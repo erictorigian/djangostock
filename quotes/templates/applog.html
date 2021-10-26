@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+<h1>Applog</h1>
+
+<form action="{% url 'applog' %}" class="form" method="POST">
+  {% csrf_token %}
+  <div class="form-group">
+    <input type="text" class="form-control" id="version" aria-describedby="versionHelp" placeholder="Enter the version number" name="version">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" id="InputComments" placeholder="Enter your version comments..." name="comment">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<br/><br/>
+
+<table class="table table-responsive table-sm table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Version</th>
+        <th scope="col">Comment</th>
+        <th scope="col">Updated</th>
+      </tr>
+    </thead>
+
+{% for entry in entries %}
+    <tbody>
+      <tr>
+        <td>{{ entry.id }}</td>
+        <td>{{ entry.version }}</td>
+        <td>{{ entry.comment }}</td>
+        <td>{{ entry.updated | naturaltime }}</td>
+      </tr>
+  
+{% endfor %} 
+    </tbody>
+</table>
+
+{% endblock content %} 

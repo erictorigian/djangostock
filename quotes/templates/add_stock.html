@@ -1,0 +1,37 @@
+{% extends 'base.html' %} 
+
+{% block content %} 
+<h1>Stock Portfolio</h1>
+
+<form action="{% url 'add_stock' %}" class="form-inline my-2 my-lg-0" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <input type="text" class="form-control" id="ticker" aria-describedby="tickerHelp" placeholder="Add to Portfolio" name="ticker">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <br/><br/>
+  
+
+  <table class="table table-sm table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Ticker</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+
+    {% for stock in stocks %} 
+    <tbody>
+    <tr>
+        <td>{{ stock.id }}</td>
+        <td>{{ stock.ticker.upper }}</td>
+        <td><a href="{% url 'delete_stock' stock.id %}">X</a></tx>
+    </tr>
+    {% endfor %}
+</tbody>
+
+{% endblock content %} 
+

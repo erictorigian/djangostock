@@ -1,0 +1,26 @@
+{% extends 'base.html' %} 
+
+{% block content %} 
+<h1>Stock Quote:  </h1><br/>
+
+{% if api %} 
+    {% if api == 'Error' %} 
+        there was an error receiving the quote... 
+    {% else %} 
+        <h2>{{ api.symbol }} - {{ api.companyName }} </h2>
+        <br/>
+        
+        Last Price: ${{ api.latestPrice }}<br/>
+        Last Trade: {{ api.lastTradeTime }}<br/>
+        Previous Close: ${{ api.previousClose }}<br/>
+        52 Week Range:  ${{ api.week52Low }} - ${{ api.week52High }}<br/>
+        YTD Change: {{ api.ytdChange }}<br/>
+        
+
+    {% endif %} 
+{% else %} 
+    {{ ticker }}
+{% endif %} 
+
+{% endblock content %} 
+
